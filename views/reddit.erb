@@ -5,8 +5,12 @@
   <button type="submit">Find Top Posts</button>
 </form>
 
-<% if @top_posts %>
-  <% @top_posts.each do |post| %>
-    <li><a href="<%= post['href'] %>"><%= post.text%></a></li>
-  <%end %>
+<% if @posts %>
+  <% @posts.each do |post| %>
+  <% if post.link[0] = '/'%>
+      <li><a href="https://www.reddit.com<%= post.link %>"><%= post.title%></a></li>
+    <%else%>
+      <li><a href="<%= post.link %>"><%= post.title%></a></li>
+    <%end %>
+  <%end%>
 <%end %>

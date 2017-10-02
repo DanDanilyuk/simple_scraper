@@ -23,13 +23,17 @@ get('/') do
 end
 
 get('/reddit') do
-  @top_posts
+  @posts = Post.all
   erb(:reddit)
 end
 
 post('/reddit') do
   reddit_nokogiri_object = Nokogiri::HTML(open('https://www.reddit.com/').read)
-  @top_posts = reddit_nokogiri_object.xpath("//p[@class='title']/a")
+  top_posts = reddit_nokogiri_object.xpath("//p[@class='title']/a")
+  top_posts.each do |post|
+    Post.create({:title => post.text, :link => post['href']})
+  end
+  @posts = Post.all
   erb(:reddit)
 end
 
