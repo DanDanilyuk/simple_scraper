@@ -38,13 +38,16 @@ post('/reddit') do
 end
 
 get('/aww') do
-  @top_aww
+  @awws = Aww.all
   erb(:aww)
 end
 
 post('/aww') do
-  reddit_nokogiri_object = Nokogiri::HTML(open('https://www.reddit.com/r/aww/').read)
-  @top_aww = reddit_nokogiri_object.xpath("//p[@class='title']/a")
-  binding.pry
+  reddit_nokogiri_object = Nokogiri::HTML(open('https://www.reddit.com/r/aww').read)
+  top_awws = reddit_nokogiri_object.xpath("//p[@class='title']/a")
+  top_awws.each do |aww|
+    Aww.create({:title => aww.text, :link => aww['href']})
+  end
+  @awws = Aww.all
   erb(:aww)
 end

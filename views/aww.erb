@@ -2,12 +2,12 @@
 <form action="/aww" method="post">
   <button type="submit">Find Top Aww</button>
 </form>
-<% if @top_aww %>
-  <% @top_aww.each do |post| %>
-    <% if post['href'][0] = '/'%>
-        <li><a href="https://www.reddit.com<%= post['href'] %>"><%= post.text%></a></li>
+<% if @awws %>
+  <% @awws.each do |aww| %>
+    <% if aww.link[0] == '/'%>
+        <li><a href="https://www.reddit.com<%= aww.link %>"><%= aww.title%></a></li>
     <%else%>
-      <li><a href="<%= post['href'] %>"><%= post.text%></a></li>
+      <li><a href="<%= aww.link %>"><%= aww.title%></a></li>
     <%end%>
   <%end %>
 <%end %>
