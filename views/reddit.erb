@@ -1,0 +1,11 @@
+<h1>Let's Scrape Reddit</h1>
+
+<form action="/reddit" method="post">
+  <button type="submit">Find Top Posts</button>
+</form>
+
+<% if @top_posts %>
+  <% @top_posts.each do |post| %>
+    <li><a href="<%= post['href'] %>"><%= post.text%></a></li>
+  <%end %>
+<%end %>
