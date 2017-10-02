@@ -1,0 +1,13 @@
+<h1>A bunch of Aww</h1>
+<form action="/aww" method="post">
+  <button type="submit">Find Top Aww</button>
+</form>
+<% if @top_aww %>
+  <% @top_aww.each do |post| %>
+    <% if post['href'][0] = '/'%>
+        <li><a href="https://www.reddit.com<%= post['href'] %>"><%= post.text%></a></li>
+    <%else%>
+      <li><a href="<%= post['href'] %>"><%= post.text%></a></li>
+    <%end%>
+  <%end %>
+<%end %>

@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: scrape_devlopment
+
+test:
+  adapter: postgresql
+  database: scrape_test

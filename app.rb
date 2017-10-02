@@ -1,7 +1,8 @@
 require("bundler/setup")
-Bundler.require(:default)
-require 'nokogiri'
 require 'open-uri'
+require 'pry'
+Bundler.require(:default)
+Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 # html_data = open('http://web.archive.org/web/20090220003702/http://www.sitepoint.com/').read
 # html_data = open('https://www.reddit.com/').read
@@ -17,11 +18,12 @@ require 'open-uri'
   # to get the attribute value of href
   # puts tagcloud_element['href']
 # end
-
 get('/') do
-  if @top_posts
-    @top_posts
-  end
+  erb(:index)
+end
+
+get('/reddit') do
+  @top_posts
   erb(:reddit)
 end
 
@@ -29,4 +31,16 @@ post('/reddit') do
   reddit_nokogiri_object = Nokogiri::HTML(open('https://www.reddit.com/').read)
   @top_posts = reddit_nokogiri_object.xpath("//p[@class='title']/a")
   erb(:reddit)
+end
+
+get('/aww') do
+  @top_aww
+  erb(:aww)
+end
+
+post('/aww') do
+  reddit_nokogiri_object = Nokogiri::HTML(open('https://www.reddit.com/r/aww/').read)
+  @top_aww = reddit_nokogiri_object.xpath("//p[@class='title']/a")
+  binding.pry
+  erb(:aww)
 end
