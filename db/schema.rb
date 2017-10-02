@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171002014650) do
+ActiveRecord::Schema.define(version: 20171002015629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "awws", force: :cascade do |t|
+    t.string "title"
+    t.string "link"
+    t.string "img_link"
+  end
+
   create_table "posts", force: :cascade do |t|
-    t.string "category"
     t.string "title"
     t.string "link"
     t.string "img_link"
